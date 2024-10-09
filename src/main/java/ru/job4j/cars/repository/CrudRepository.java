@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -14,16 +16,23 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class CrudRepository {
     private final SessionFactory sf;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrudRepository.class);
 
-    public void run(Consumer<Session> command) {
-        tx(session -> {
-                    command.accept(session);
-                    return null;
-                }
-        );
+    public boolean run(Consumer<Session> command) {
+        boolean rsl = false;
+        try {
+            tx(session -> {
+                command.accept(session);
+                return null;
+            });
+            rsl = true;
+        } catch (Exception e) {
+            LOGGER.error("An error occurred while running the command", e);
+        }
+        return rsl;
     }
 
-    public void run(String query, Map<String, Object> args) {
+    public boolean run(String query, Map<String, Object> args) {
         Consumer<Session> command = session -> {
             var sq = session
                     .createQuery(query);
@@ -32,7 +41,7 @@ public class CrudRepository {
             }
             sq.executeUpdate();
         };
-        run(command);
+        return run(command);
     }
 
     public <T> Optional<T> optional(String query, Class<T> cl, Map<String, Object> args) {
