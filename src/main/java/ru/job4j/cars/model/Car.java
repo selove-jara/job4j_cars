@@ -26,6 +26,10 @@ public class Car {
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
     private Engine engine;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_brand_id", foreignKey = @ForeignKey(name = "CAR_BRAND_ID_FK"))
+    private CarBrand carBrand;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "history_owner", joinColumns = {
             @JoinColumn(name = "car_id", nullable = false, updatable = false)},
