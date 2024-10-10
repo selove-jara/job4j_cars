@@ -48,8 +48,8 @@ public class Post {
     @ManyToMany()
     @JoinTable(
             name = "post_file",
-            joinColumns = { @JoinColumn(name = "post_id")},
-            inverseJoinColumns = { @JoinColumn(name = "file_id")}
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "file_id")}
     )
     private List<File> files = new ArrayList<>();
 }
