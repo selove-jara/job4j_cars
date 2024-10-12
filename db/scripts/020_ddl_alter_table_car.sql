@@ -1,0 +1,1 @@
+ALTER TABLE car ADD COLUMN car_brand_id INT NOT NULL;

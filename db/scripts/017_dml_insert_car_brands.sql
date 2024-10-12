@@ -1,0 +1,1 @@
+INSERT INTO car_brands (name) VALUES ('Toyota'), ('Honda'), ('BMW');
