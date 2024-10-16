@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>Создание объявления о продаже авто</title>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container">
+        <h2 class="mt-3">Создание объявления о продаже авто</h2>
+        <form class="mt-3" th:action="@{/posts/save}" method="post" enctype="multipart/form-data">
+
+            <div class="row mb-3">
+                <label for="carName" class="form-label"><b>Полное название автомобиля</b></label>
+                <input type="text" class="form-control" id="carName" name="carName" required>
+            </div>
+            <div class="row mb-3">
+                <label for="carBody"><b>Кузов автомобиля</b></label>
+                <select class="form-control" id="carBody" name="carBodyId">
+                    <option value="">Выберите кузов</option>
+                    <option th:each="carBody : ${carBodies}"
+                            th:value="${carBody.id}"
+                            th:text="${carBody.name}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label for="category"><b>Категория автомобиля</b></label>
+                <select class="form-control" id="category" name="categoryId">
+                    <option value="">Выберите категорию</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label for="carBrand"><b>Марка автомобиля</b></label>
+                <select class="form-control" id="carBrand" name="carBrandId">
+                    <option value="">Выберите марку</option>
+                    <option th:each="carBrand : ${carBrands}"
+                            th:value="${carBrand.id}"
+                            th:text="${carBrand.name}"></option>
+                </select>
+            </div>
+
+            <div class="row mb-3">
+                <label for="carModel"><b>Модель автомобиля</b></label>
+                <select class="form-control" id="carModel" name="carModelId">
+                    <option value="">Выберите модель</option>
+                    <option th:each="carModel : ${carModels}"
+                            th:value="${carModel.id}"
+                            th:text="${carModel.name}"></option>
+                </select>
+            </div>
+
+            <div class="row mb-3">
+                <label for="engine"><b>Двигатель</b></label>
+                <select class="form-control" id="engine" name="engineId">
+                    <option value="">Выберите двигатель</option>
+                    <option th:each="engine : ${engines}"
+                            th:value="${engine.id}"
+                            th:text="${engine.name}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label for="color"><b>Цвет автомобиля</b></label>
+                <select class="form-control" id="color" name="colorId">
+                    <option value="">Выберите цвет</option>
+                    <option th:each="color : ${colors}"
+                            th:value="${color.id}"
+                            th:text="${color.name}"></option>
+                </select>
+            </div>
+            <div class="row mb-3">
+                <label for="price" class="form-label"><b>Цена</b></label>
+                <input type="number" class="form-control" id="price" name="price" required placeholder="Введите цену" inputmode="numeric">
+            </div>
+
+            <div class="row mb-3">
+                <label for="description" class="form-label"><b>Описание автомобиля</b></label>
+                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Опишите автомобиль и условия продажи" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="formMultipleFile"><b>Фото автомобиля</b></label>
+                <input class="form-control" type="file" id="formMultipleFile" name="files" multiple required>
+                <small class="form-text text-muted">Выберите одно или несколько изображений.</small>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-success w-100" type="submit">Сохранить</button>
+                        </div>
+                        <div class="col-6">
+                            <a class="btn btn-light w-100" th:href="@{/posts}">Отмена</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4"></div>
+            </div>
+        </form>
+    </div>
+    <footer th:insert="blocks/footer :: footer"></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Зависимости Bootstrap -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script th:src="@{/js/code.jquery.com_jquery-3.7.0.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <title>Продажа авто</title>
+    <style>
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <header th:insert="blocks/header :: header"></header>
+    <div class="container mt-4">
+        <h1>Все объявления</h1>
+        <div class="mt-3 row">
+            <div class="col-2">
+                <a class="btn btn-primary w-100 me-1" th:href="@{/posts/last}">Новые</a>
+            </div>
+            <div class="col-2">
+                <a class="btn btn-primary w-100" th:href="@{/posts/photos}">С фото</a>
+            </div>
+        </div>
+
+        <div class="mt-3 row">
+            <div class="col-md-3" th:each="post : ${posts}" th:if="${!post.isActive}">
+                <a th:href="@{/posts/{id}(id=${post.id})}" class="text-decoration-none">
+                    <div class="card mb-4">
+                        <img th:src="@{/files/{id}(id=${post.files[0].id})}" alt="Изображение" class="card-img-top" style="height: 200px;" th:if="${post.files.size() > 0}">
+                        <p th:if="${post.files.size() == 0}" class="text-danger">Нет изображений</p>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${post.car.carBrand.name} + ' ' + ${post.car.carModel.name}"></h5>
+                            <p class="card-text"><span th:text="${post.car.engine.name}"></span></p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer th:insert="blocks/footer :: footer"></footer>
+</div>
+</body>
+</html>

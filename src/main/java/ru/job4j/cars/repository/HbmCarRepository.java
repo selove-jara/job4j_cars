@@ -23,7 +23,7 @@ public class HbmCarRepository implements CarRepository {
     @Override
     public Car save(Car car) {
         try {
-            crudRepository.run((Consumer<Session>) session -> session.persist(car));
+            crudRepository.run(session -> session.persist(car));
         } catch (Exception e) {
             LOGGER.error("Ошибка при сохранение", e);
         }
@@ -33,7 +33,7 @@ public class HbmCarRepository implements CarRepository {
     @Override
     public boolean update(Car car) {
         try {
-            crudRepository.run((Consumer<Session>) session -> session.update(car));
+            crudRepository.run(session -> session.update(car));
             return crudRepository.run("""
                     UPDATE Car SET name = :fName, engine_id = :fEngineId
                     WHERE id = :fId
@@ -61,7 +61,7 @@ public class HbmCarRepository implements CarRepository {
     public Optional<Car> findById(int id) {
         try {
             return crudRepository.optional(
-                    "SELECT DISTINCT c from Car c JOIN FETCH c.engine JOIN FETCH c.owners WHERE c.id = :fId",
+                    "SELECT DISTINCT c from Car  WHERE c.id = :fId",
                     Car.class,
                     Map.of("fId", id)
             );
@@ -75,7 +75,7 @@ public class HbmCarRepository implements CarRepository {
     public List<Car> findAllOrderById() {
         try {
             return crudRepository.query(
-                    "SELECT DISTINCT c from Car c JOIN FETCH c.engine JOIN FETCH c.owners ORDER BY c.id",
+                    "SELECT DISTINCT c from Car ORDER BY c.id",
                     Car.class
             );
         } catch (Exception e) {

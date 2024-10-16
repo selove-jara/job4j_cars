@@ -18,7 +18,6 @@ public class HbmColorRepository implements ColorRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(HbmColorRepository.class);
     private final CrudRepository crudRepository;
 
-
     @Override
     public Optional<Color> findById(int id) {
         try {

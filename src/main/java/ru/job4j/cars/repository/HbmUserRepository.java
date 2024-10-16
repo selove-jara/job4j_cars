@@ -1,12 +1,14 @@
 package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.model.User;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Repository
 @AllArgsConstructor
