@@ -1,18 +1,18 @@
 package ru.job4j.cars.model;
 
+
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "car_brands")
+@Table(name = "car_body")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarBrand {
+public class CarBody {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
